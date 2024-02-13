@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  flask_api:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - FLASK_ENV=development
+    command: python /app/app.py  # Pfad angepasst, da das Arbeitsverzeichnis /app ist
+
+  streamlit_app:
+    build: ./frontend
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./frontend:/app
+    command: streamlit run /app/streamlit_app.py --server.port 8501 --server.address 0.0.0.0
